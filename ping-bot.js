@@ -29,6 +29,7 @@ function loadState() {
   }
 }
 
+/* Updates the STATE_FILE */
 function saveState() {
   const data = {
     startingBlock,
@@ -38,7 +39,6 @@ function saveState() {
 }
 
 async function handlePingEvent(event) {
-  const blockNumber = event.blockNumber;
   const txHash = event.transactionHash;
   try {
     const tx = contract.methods.pong(txHash);
@@ -109,8 +109,9 @@ async function fetchPastPings() {
 async function main() {
   loadState();
   if (startingBlock === 0) {
-    //save the blocknumber that the bot started
+    //save the blocknumber that the bot started and equals to lastProcessed just for the 1st run
     startingBlock = await web3.eth.getBlockNumber();
+    lastProcessedBlock = startingBlock;
     saveState();
   }
   await fetchPastPings();
