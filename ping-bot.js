@@ -109,6 +109,7 @@ async function main() {
   if (startingBlock === 0) {
     //save the blocknumber that the bot started and equals to lastProcessed just for the 1st run
     startingBlock = await web3.eth.getBlockNumber();
+    console.log("Starting block:", startingBlock);
     lastProcessedBlock = startingBlock;
     saveState();
   }
