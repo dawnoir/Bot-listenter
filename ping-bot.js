@@ -2,9 +2,7 @@ const Web3 = require("web3");
 const fs = require("fs");
 require("dotenv").config();
 
-const web3 = new Web3(
-  "wss://sepolia.infura.io/ws/v3/6f968d1ef7b4485ca20b08562dcb1757",
-);
+const web3 = new Web3(process.env.SEPOLIA_WSS);
 
 const ABI = require("./abi.json");
 const ADDRESS = "0xa7f42ff7433cb268dd7d59be62b00c30ded28d3d";
