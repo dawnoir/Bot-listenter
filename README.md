@@ -1,23 +1,26 @@
-# Bot-listenter
+# 🔁 Ethereum Ping-Pong Bot
 
-A Node.js bot that listens for `Ping` events from an Ethereum smart contract (on the Sepolia testnet via WebSocket) and automatically responds by calling the `pong` function. Perfect for automation triggered by smart contract events.
-
----
-
-## ⚙️ How It Works
-
-- Connects to the Sepolia Ethereum network using WebSocket.
-- Listens for `Ping` events emitted by a specified contract.
-- When a new `Ping` is detected, it sends a transaction calling the `pong` function.
-- Maintains state using a local JSON file to avoid processing duplicate events.
+This bot listens for `Ping()` events on a smart contract and responds with a `pong(txHash)` transaction.  
+It is built to be **reliable**, **resilient**, and **recover automatically** from crashes or network failures.
 
 ---
 
-## 📦 Requirements
+## 📦 Features
 
-- Node.js 16+
-- An Ethereum account with Sepolia ETH
-- A `.env` file containing:
-  ```env
-  PRIVATE_KEY=your_private_key_without_0x
-  SEPOLIA_WSS=wss://your-sepolia-websocket-url
+- ✅ Listens to live `Ping()` events via WebSocket
+- ✅ Sends `pong()` transactions in response
+- ✅ Recovers missed events on restart (`getPastEvents`)
+- ✅ Persists state (last processed block + handled events)
+- ✅ Retries transactions with exponential gas and backoff
+- ✅ Avoids duplicate processing with event IDs
+
+---
+
+## ⚙️ Requirements
+
+- Node.js v16+
+- `.env` file with the following:
+
+```env
+SEPOLIA_WSS=wss://your-sepolia-ws-endpoint
+PRIVATE_KEY=your_private_key_without_0x
